@@ -1,29 +1,103 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-    <head>
-        <title>Test Layout</title>
-        <style type="text/css">
-            body, html
-            {
-                background-color: black;
-                margin: 0; padding: 0; height: 100%; overflow: hidden;
-            }
-
-            #frame
-            {
-                position:absolute; left: 0; right: 0; bottom: 0; top: 0px; 
-            }
-        </style>
-    </head>
-    <body>
-        <div id="frame">
-            <iframe id="content" width="100%" height="100%" frameborder="0" src=""></iframe>
-        </div>
-    </body>
-    <script>
-        params=new URLSearchParams(window.location.search)
-        if(params.get("content")){
-            document.getElementById("content").src=atob(params.get("content"))
+<html><head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <style>
+        .header{
+            position: absolute;
+            margin-top: 100px;
+            margin-bottom: 0;
+            padding-bottom: 0;
+            user-select: none;
+            text-shadow: 0 0 120px red,0 0 100px red,0 0 80px red,0 0 50px red,0 0 30px red,0 0 10px red;
+            transition: text-shadow 2s ease;
+            font-size: 100px;
+            color: red;
+            font-weight: 900;
+            display: inline-block;
+            transform: translateX(-50%);
+            left: 50%;
         }
-    </script>
-</html>
+        .inheader{
+            position: relative;
+            margin-top: 100px;
+            margin-bottom: 100px;
+            padding-bottom: 0;
+            user-select: none;
+            text-shadow: 0 0 10px rgb(255, 255, 255);
+            transition: text-shadow 2s ease;
+            font-size: 100px;
+            color: rgba(255, 255, 255, 0.816);
+            font-weight: 100;
+            display: inline-block;
+            transform: translateX(-50%);
+            left: 50%;
+        }
+        .item{
+            position: relative;
+            display: inline-block;
+            transform: translateX(-50%);
+            left: 50%;
+            transition: color 1s ease;
+            color: rgba(255, 255, 255, .9);
+        }
+        .list{
+            text-shadow:none;
+            position: relative;
+            display: inline-block;
+            transform: translateX(-50%);
+            left: 50%;
+            display: inline-block;
+            padding-bottom: 100px;
+        }
+        body,html{
+            scroll-behavior:smooth;
+            overflow-y: scroll;
+            overflow-x: none;
+            font-family: -webkit-pictograph;
+            background: #070809;
+            font-size: 18px;
+            color: rgba(255, 255, 255, 0);
+        }
+        ::selection{
+            background-color: rgba(0, 208, 255, 0.152);
+        }
+        ::-webkit-scrollbar{
+            background-color: rgba(255, 0, 0, 0);
+            width: 5px;
+        }
+        ::-webkit-scrollbar-thumb{
+            background-color: rgba(255, 0, 0, 0.357);
+            transition: height .5s ease;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="list">
+        <div class="header">
+            <center>[ERROR]</center>
+            ___________________________
+        </div>
+        <div class="inheader">
+            <center>[ERROR]</center>
+            ___________________________
+        </div>
+    </div>
+    <script>
+        xErrors=((new UrlSearchParams(window.location.search)).get("errors")).split("\n")
+        setTimeout(()=>{$("html, body").animate({ scrollTop: document.body.scrollHeight }, "slow");},5000)
+        childsx=[]
+        async function f(o){
+            var lel=xErrors[o]
+            setTimeout(()=>{
+                    parent=document.getElementsByClassName("list")[0];
+                    parent.innerHTML+=`<div id="item" class="item" style="display: none;">${lel}</div>`;
+                    $(parent.lastChild).fadeIn(200);
+            },300*o)
+            
+        };
+        a=async()=>{
+            for(var i=0;i<xErrors.length;i++) {
+                await f(i)
+            }
+         };
+        a();</script></body></html>
