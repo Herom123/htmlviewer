@@ -92,8 +92,8 @@
             var lel=xErrors[o]
             setTimeout(()=>{
                     parent=document.getElementsByClassName("list")[0];
-                    parent.innerHTML+=`<div id="item" class="item" style="display: none;">${lel}</div>`;
-                    $(parent.lastChild).fadeIn(200);
+                    parent.innerHTML=`<div id="item" class="item" style="display: none;">${lel}</div>`+parent.innerHTML;
+                    $(parent.firstChild).fadeIn(200);
             },300*o)
             
         };
