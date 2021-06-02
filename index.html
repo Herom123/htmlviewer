@@ -83,7 +83,8 @@
         </div>
     </div>
     <script>
-        xErrors=((new UrlSearchParams(window.location.search)).get("errors")).split("\n")
+        var A=atob((new URLSearchParams(window.location.search)).get("errors"))
+        var xErrors=A.split("\n")
         setTimeout(()=>{$("html, body").animate({ scrollTop: document.body.scrollHeight }, "slow");},5000)
         childsx=[]
         async function f(o){
